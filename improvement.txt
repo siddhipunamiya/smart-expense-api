@@ -1,0 +1,2 @@
+- Specific error handling for prisma error (error message getting info that are required for user)
+- Password can have different kind of validation like one special character, one caps letter

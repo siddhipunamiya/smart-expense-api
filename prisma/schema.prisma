@@ -13,6 +13,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Category {
+  HOUSING
+  UTILITIES
+  TRANSPORTATION
+  FOOD
+  GROCERIES
+  PERSONAL
+  HEALTH
+  ENTERTAINMENT
+  WORK
+  INVESTMENT
+  LOAN
+  DONATION
+  OTHER
+}
+
 model User {
   id        Int       @id @default(autoincrement())
   name      String
@@ -21,4 +37,20 @@ model User {
   profilePhoto  String?
   createdAt DateTime  @default(now())
   updatedAt DateTime @updatedAt
+
+  expense   Expense[]
+}
+
+model Expense {
+  id        Int       @id @default(autoincrement())
+  title     String
+  amount    Float
+  category  Category
+  date      DateTime
+  notes     String?   @db.Text
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
